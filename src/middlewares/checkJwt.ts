@@ -5,38 +5,33 @@
 * If the token is valid, it will call the next function that will be handled by the controller.
 * Otherwise, it will send a response with the 401 (unauthorized) status code.
 */
-import { Router } from "express";
-import UserController from "../controllers/UserController";
-import { checkJwt } from "../middlewares/checkJwt";
-import { checkRole } from "../middlewares/checkRole";
+import { Request, Response, NextFunction } from "express";
+import * as jwt from "jsonwebtoken";
+import config from "../config";
 
-const router = Router();
+export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
+    //Get the jwt token from the head
+    const token = <string>req.headers["auth"];
+    let jwtPayload;
 
-//Get all users
-router.get("/", [checkJwt, checkRole(["ADMIN"])], UserController.listAll);
+    //Try to validate the token and get data
+    try {
+        jwtPayload = <any>jwt.verify(token, config.jwtSecret);
+        res.locals.jwtPayload = jwtPayload;
+    } catch (error) {
+        //If token is not valid, respond with 401 (unauthorized)
+        res.status(401).send();
+        return;
+    }
 
-// Get one user
-router.get(
-    "/:id([0-9]+)",
-    [checkJwt, checkRole(["ADMIN"])],
-    UserController.getOneById
-);
+    //The token is valid for 1 hour
+    //We want to send a new token on every request
+    const { userId, username } = jwtPayload;
+    const newToken = jwt.sign({ userId, username }, config.jwtSecret, {
+        expiresIn: "1h"
+    });
+    res.setHeader("token", newToken);
 
-//Create a new user
-router.post("/", [checkJwt, checkRole(["ADMIN"])], UserController.newUser);
-
-//Edit one user
-router.patch(
-    "/:id([0-9]+)",
-    [checkJwt, checkRole(["ADMIN"])],
-    UserController.editUser
-);
-
-//Delete one user
-router.delete(
-    "/:id([0-9]+)",
-    [checkJwt, checkRole(["ADMIN"])],
-    UserController.deleteUser
-);
-
-export default router;
+    //Call the next middleware or controller
+    next();
+};
