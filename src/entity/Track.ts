@@ -8,11 +8,11 @@ import {
     ManyToOne
 } from "typeorm";
 import { Length } from "class-validator";
-import { Albume } from "./Albume";
+import { Category } from "./Category";
 
 @Entity()
 @Unique(["name"])
-export class Song {
+export class Track {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -26,8 +26,8 @@ export class Song {
     @Column()
     length: number;
 
-    @ManyToOne(type => Albume, albume => albume.songs)
-    albume: Albume;
+    @ManyToOne(type => Category, category => category.tracks)
+    category: Category;
 
     @Column()
     @CreateDateColumn()

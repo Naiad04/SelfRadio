@@ -8,11 +8,11 @@ import {
     OneToMany
 } from "typeorm";
 import { Length } from "class-validator";
-import { Song } from "./Song";
+import { Track } from "./Track";
 
 @Entity()
 @Unique(["name"])
-export class Albume {
+export class Category {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -23,8 +23,8 @@ export class Albume {
     @Column()
     timesPlayed: number;
 
-    @OneToMany(type => Song, song => song.albume);
-    songs: Song[];
+    @OneToMany(type => Track, track => track.category)
+    tracks: Track[];
 
     @Column()
     @CreateDateColumn()
@@ -34,11 +34,7 @@ export class Albume {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    addSong() {
-
-    }
-
-    addSongById(songId: number) {
+    addTrack(track: Track) {
 
     }
 }
