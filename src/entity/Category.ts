@@ -33,8 +33,4 @@ export class Category {
     @Column()
     @UpdateDateColumn()
     updatedAt: Date;
-
-    addTrack(track: Track) {
-
-    }
 }
