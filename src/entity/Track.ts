@@ -29,6 +29,9 @@ export class Track {
     @ManyToOne(type => Category, category => category.tracks)
     category: Category;
 
+    @Column({ default: false })
+    processed: boolean;
+
     @Column()
     @CreateDateColumn()
     createdAt: Date;
