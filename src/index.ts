@@ -5,6 +5,9 @@ import bodyParser from "body-parser";
 import helmet from "helmet";
 import cors from "cors";
 import routes from "./routes";
+import Source from "./ices/source";
+
+declare var globalSource: Source;
 
 //Connects to the Database -> then starts the express
 createConnection()
@@ -22,6 +25,7 @@ createConnection()
 
         app.listen(3000, () => {
             console.log("Server started on port 3000!");
+            globalSource = new Source();
         });
     })
     .catch(error => console.log(error));
