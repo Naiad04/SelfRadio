@@ -3,7 +3,7 @@
    "version": "0.0.1",
    "description": "Simp",
    "devDependencies": {
-      "@types/node": "^8.0.29",
+      "@types/node": "^12.11.5",
       "ts-node": "3.3.0",
       "typescript": "3.3.3333"
    },
