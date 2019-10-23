@@ -1,3 +1,3 @@
-import Source from "./ices/source";
+import Source from "./global_classes/source";
 
 declare var globalSource: Source;
