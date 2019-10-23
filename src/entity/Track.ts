@@ -33,6 +33,9 @@ export class Track {
     processed: boolean;
 
     @Column()
+    hidden: boolean;
+
+    @Column()
     @CreateDateColumn()
     createdAt: Date;
 
