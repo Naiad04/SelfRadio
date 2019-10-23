@@ -5,7 +5,7 @@
    "devDependencies": {
       "@types/node": "^12.11.5",
       "ts-node": "3.3.0",
-      "typescript": "3.3.3333"
+      "typescript": "3.6.4"
    },
    "dependencies": {
       "@types/body-parser": "^1.17.1",
