@@ -26,6 +26,8 @@ class TrackController {
         let track = new Track();
         track.name = req.body.name;
         track.category = category;
+        track.hidden = false;
+        track.processed = false;
         const trackRepository = getRepository(Track);
         trackRepository.save(track);
         res.status(201).send("New Track created");

@@ -20,10 +20,10 @@ export class Track {
     @Length(1, 120)
     name: string;
 
-    @Column()
+    @Column({ default: 0 })
     timesPlayed: number;
 
-    @Column()
+    @Column({ default: 0 })
     length: number;
 
     @ManyToOne(type => Category, category => category.tracks)
@@ -32,7 +32,7 @@ export class Track {
     @Column({ default: false })
     processed: boolean;
 
-    @Column()
+    @Column({ default: false })
     hidden: boolean;
 
     @Column()
