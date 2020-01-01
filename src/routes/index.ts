@@ -4,6 +4,8 @@
 import { Router, Request, Response } from "express";
 import auth from "./auth";
 import user from "./user";
+import hook from "./hook";
+import tracks from "./tracks";
 
 const routes = Router();
 
